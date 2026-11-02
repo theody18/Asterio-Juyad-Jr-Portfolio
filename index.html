@@ -8,13 +8,140 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<style>
+:root{
+  --bg:#F2F6F8;--card:#FFFFFF;--ink:#14233B;--muted:#51627A;--teal:#1F7A8C;--soft:#DCEEF2;--gold:#F2B632;--on-gold:#14233B;--line:#D3DEE5;--band:#14233B;--on-band:#EAF1F4;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0F1B2D;--card:#16273D;--ink:#EAF1F4;--muted:#A9B8CA;--teal:#5CC0D3;--soft:#1B3A4D;--line:#2A3F5A;--band:#1B3A4D;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0F1B2D;--card:#16273D;--ink:#EAF1F4;--muted:#A9B8CA;--teal:#5CC0D3;--soft:#1B3A4D;--line:#2A3F5A;--band:#1B3A4D;color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.06rem;line-height:1.65}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:11}
+h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;margin:0;line-height:1.12}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+section{padding:76px 0}
+.head{max-width:620px;margin-bottom:34px}
+.head h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.01em}
+.head p{color:var(--muted);margin:12px 0 0}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:12;background:var(--bg);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.1rem}
+.brand img{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--teal)}
+nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+nav ul a{text-decoration:none;color:var(--muted);font-weight:500}
+nav ul a:hover{color:var(--ink)}
+
+.btn{display:inline-block;padding:13px 22px;border-radius:12px;font-weight:600;text-decoration:none;border:2px solid var(--ink);font-size:1rem}
+.btn:active{transform:translateY(1px)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.btn.out{background:transparent}
+.btn.sm{padding:9px 16px;font-size:.95rem}
+.row{display:flex;flex-wrap:wrap;gap:12px}
+
+.hero{padding:60px 0 70px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:9px;background:var(--soft);border-radius:999px;padding:7px 15px;font-weight:600;font-size:.92rem;margin-bottom:22px}
+.status i{width:9px;height:9px;border-radius:50%;background:#2DB36B}
+.hero h1{font-size:clamp(2.5rem,5.6vw,4.3rem);font-weight:800;letter-spacing:-.025em}
+.hero p.lead{color:var(--muted);font-size:1.15rem;max-width:30em;margin:22px 0 30px}
+.traits{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:34px;font-weight:600}
+.traits span::before{content:"✓";color:var(--teal);margin-right:8px;font-weight:800}
+.portrait{position:relative;margin:0 0 30px 0}
+.portrait::before{content:"";position:absolute;inset:18px -18px -18px 18px;background:var(--soft);border-radius:26px}
+.portrait img{position:relative;display:block;width:100%;aspect-ratio:420/471;object-fit:cover;object-position:top;border-radius:26px;border:2px solid var(--ink)}
+.tag{position:absolute;z-index:1;left:-14px;bottom:-26px;background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:12px 18px;line-height:1.3}
+.tag b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.05rem}
+.tag span{color:var(--muted);font-size:.92rem}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+.card .ic{width:48px;height:48px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:1.5rem;margin-bottom:16px}
+.card h3{font-size:1.2rem;margin-bottom:8px}
+.card p{margin:0;color:var(--muted);font-size:.98rem}
+.note{margin-top:22px;color:var(--muted)}
+
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:start}
+.split p{margin:0 0 16px;max-width:34em;color:var(--muted)}
+.split p strong{color:var(--ink)}
+.todo{background:var(--card);border:2px solid var(--ink);border-radius:18px;padding:24px;box-shadow:8px 8px 0 var(--gold)}
+.todo h3{font-size:1.25rem}
+.todo .sub{color:var(--muted);font-size:.93rem;margin:4px 0 16px}
+.todo ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.task{all:unset;box-sizing:border-box;display:flex;gap:12px;align-items:center;width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.task:hover{border-color:var(--teal)}
+.task:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.box{flex:none;width:23px;height:23px;border:2px solid var(--ink);border-radius:7px;display:grid;place-items:center;font-size:.8rem;color:transparent}
+.task[aria-pressed="true"] .box{background:var(--teal);border-color:var(--teal);color:#fff}
+.task[aria-pressed="true"] .t{text-decoration:line-through;color:var(--muted)}
+.count{margin-top:16px;font-weight:600;min-height:1.6em}
+
+.why{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.why div{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--teal);border-radius:12px;padding:22px 24px}
+.why h3{font-size:1.15rem;margin-bottom:6px}
+.why p{margin:0;color:var(--muted)}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0}
+.chips li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-weight:500}
+.chips li.core{background:var(--soft);border-color:var(--teal);font-weight:600}
+.legend{margin-top:16px;color:var(--muted);font-size:.93rem}
+
+.bg-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.bg-cards .card h3{font-size:1.15rem}
+.bg-cards .org{color:var(--ink);font-weight:500;margin-top:4px}
+.bg-cards .when{color:var(--muted);font-size:.95rem}
+
+.proj{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;padding:36px 0;border-top:1px solid var(--line)}
+.proj:nth-of-type(even){grid-template-columns:.8fr 1.2fr}
+.proj:nth-of-type(even) .shot{order:2}
+.shot{all:unset;box-sizing:border-box;position:relative;display:block;cursor:zoom-in;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff;box-shadow:7px 7px 0 var(--soft)}
+.shot:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
+.shot img{display:block;width:100%;height:auto}
+.zoom{position:absolute;right:10px;bottom:10px;background:var(--ink);color:var(--bg);font-size:.8rem;font-weight:600;padding:5px 11px;border-radius:999px}
+.plabel{color:var(--teal);font-weight:600;font-size:.95rem;margin-bottom:8px}
+.ptext h3{font-size:1.6rem;margin-bottom:12px}
+.ptext p{margin:0 0 14px;color:var(--muted)}
+.ptext ul{margin:0 0 18px;padding-left:20px}
+.ptext li{margin-bottom:4px}
+.mock{display:inline-block;background:var(--soft);border-radius:999px;padding:5px 14px;font-size:.88rem;font-weight:600}
+dialog{max-width:96vw;max-height:92vh;width:1100px;padding:12px;border:2px solid var(--ink);border-radius:14px;background:var(--card);color:var(--ink);overflow:auto}
+dialog::backdrop{background:rgba(10,18,30,.7)}
+dialog img{display:block;width:100%;height:auto;border-radius:8px}
+.lb-close{position:sticky;top:0;float:right;margin:0 0 8px 8px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--gold);color:var(--on-gold);font:inherit;font-weight:600;cursor:pointer}
+@media (max-width:860px){.proj,.proj:nth-of-type(even){grid-template-columns:1fr;gap:24px}.proj:nth-of-type(even) .shot{order:0}}
+.band{background:var(--band);color:var(--on-band);border-radius:24px;padding:60px 44px}
+.band h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:800;max-width:14em}
+.band p{margin:14px 0 26px;max-width:34em;opacity:.88}
+.band .btn.out{border-color:var(--on-band);color:var(--on-band)}
+.reach{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:26px;opacity:.9}
+.reach a{text-decoration:none;font-weight:500}
+.reach a:hover{text-decoration:underline}
+footer{padding:12px 0 44px;color:var(--muted);font-size:.92rem;text-align:center}
+footer a{color:var(--teal);font-weight:600}
+
+@media (max-width:860px){
+  nav ul{display:none}
+  section{padding:54px 0}
+  .hero{padding-top:36px}
+  .hero-grid,.split{grid-template-columns:1fr;gap:44px}
+  .portrait{max-width:380px;margin-left:8px}
+  .cards,.why,.bg-cards{grid-template-columns:1fr}
+  .band{padding:42px 24px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
 </head>
 <body>
 <header>
   <div class="wrap">
     <nav aria-label="Main">
-      <a class="brand" href="#top"><img src="profile.jpg" alt="" width="38" height="38">Asterio Juyad Jr.</a>
+      <a class="brand" href="#top"><img src="images/profile-photo.jpg" alt="" width="38" height="38">Asterio Juyad Jr.</a>
       <ul>
         <li><a href="#services">Services</a></li><li><a href="#projects">Projects</a></li><li><a href="#about">About</a></li><li><a href="#why">Why me</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li>
       </ul>
@@ -37,7 +164,7 @@
         <div class="traits"><span>Reliable</span><span>Organized</span><span>Detail-oriented</span></div>
       </div>
       <figure class="portrait">
-        <img id="hero-photo" src="profile.jpg" alt="Portrait of Asterio “Jay” Juyad Jr." width="420" height="471">
+        <img id="hero-photo" src="images/profile-photo.jpg" alt="Portrait of Asterio “Jay” Juyad Jr." width="420" height="471">
         <figcaption class="tag"><b>Asterio “Jay” Juyad Jr.</b><span>General Virtual Assistant</span></figcaption>
       </figure>
     </div>
@@ -47,12 +174,12 @@
     <div class="wrap">
       <div class="head"><h2>How I can help your business</h2><p>Hand me the tasks that eat up your day.</p></div>
       <div class="cards">
-        <div class="card"><div class="ic" aria-hidden="true">📥</div><h3>Administrative support</h3><p>Email and calendar management, appointment scheduling, travel arrangements, and file organization.</p></div>
-        <div class="card"><div class="ic" aria-hidden="true">📊</div><h3>Data entry and spreadsheets</h3><p>Accurate data entry, cleanup, and organization in Excel or Google Sheets.</p></div>
-        <div class="card"><div class="ic" aria-hidden="true">💬</div><h3>Customer support</h3><p>Answering inquiries, following up with clients, and managing messages professionally.</p></div>
-        <div class="card"><div class="ic" aria-hidden="true">🔎</div><h3>Research</h3><p>Online research and lead generation, compiled into clear, easy-to-read summaries.</p></div>
-        <div class="card"><div class="ic" aria-hidden="true">📄</div><h3>Document preparation</h3><p>Formatting documents, preparing reports, and proofreading.</p></div>
-        <div class="card"><div class="ic" aria-hidden="true">📅</div><h3>Social media support</h3><p>Scheduling posts and organizing content calendars.</p></div>
+        <div class="card"><div class="ic" aria-hidden="true">📥</div><h3>Administrative support</h3><p>Email and calendar management, appointment scheduling, file organization, and keeping records updated.</p></div>
+        <div class="card"><div class="ic" aria-hidden="true">📊</div><h3>Data entry and spreadsheets</h3><p>Accurate data entry, cleanup, and organization in Microsoft Excel, Google Sheets, and Microsoft 365.</p></div>
+        <div class="card"><div class="ic" aria-hidden="true">💬</div><h3>Customer support</h3><p>Answering inquiries, following up with clients or stakeholders, and managing messages professionally.</p></div>
+        <div class="card"><div class="ic" aria-hidden="true">🔎</div><h3>Research</h3><p>Online research, gathering information, and compiling clear, easy-to-read summaries.</p></div>
+        <div class="card"><div class="ic" aria-hidden="true">📄</div><h3>Document preparation</h3><p>Formatting documents, preparing reports, creating visual materials, and proofreading using Canva and Microsoft 365 (Word, PowerPoint, Excel).</p></div>
+        <div class="card"><div class="ic" aria-hidden="true">📅</div><h3>Social media and content support</h3><p>Organizing content calendars and creating clean, professional visuals with Canva.</p></div>
       </div>
       <p class="note">Need something else? I also take on general recurring or one-time tasks that free up your time.</p>
     </div>
@@ -62,7 +189,7 @@
     <div class="wrap">
       <div class="head"><h2>Sample projects</h2><p>Five mock projects that show how I handle common virtual assistant tasks. Every business and record in them is fictional, so they are samples of my work style, not real client work.</p></div>
       <article class="proj">
-        <button class="shot" type="button" aria-label="Enlarge project 1: Inbox organization and weekly schedule"><img src="project-1.png" alt="Spreadsheet screenshot of a mock inbox organization project with priority labels, follow-up tasks, a status summary, and a weekly calendar" width="1321" height="1412" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
+        <button class="shot" type="button" aria-label="Enlarge project 1: Inbox organization and weekly schedule"><img src="images/project-1-inbox-organization.png" alt="Spreadsheet screenshot of a mock inbox organization project with priority labels, follow-up tasks, a status summary, and a weekly calendar" width="1321" height="1412" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
         <div class="ptext">
           <div class="plabel">Project 1 · Administrative support</div>
           <h3>Inbox organization and weekly schedule</h3>
@@ -72,7 +199,7 @@
         </div>
       </article>
       <article class="proj">
-        <button class="shot" type="button" aria-label="Enlarge project 2: Monthly sales tracker"><img src="project-2.png" alt="Spreadsheet screenshot of a sample monthly sales tracker with formulas and a payment summary" width="1235" height="907" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
+        <button class="shot" type="button" aria-label="Enlarge project 2: Monthly sales tracker"><img src="images/project-2-sales-tracker.png" alt="Spreadsheet screenshot of a sample monthly sales tracker with formulas and a payment summary" width="1235" height="907" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
         <div class="ptext">
           <div class="plabel">Project 2 · Data entry and spreadsheets</div>
           <h3>Monthly sales tracker</h3>
@@ -82,7 +209,7 @@
         </div>
       </article>
       <article class="proj">
-        <button class="shot" type="button" aria-label="Enlarge project 3: 7-day content calendar"><img src="project-3.png" alt="Spreadsheet screenshot of a sample 7-day social media content calendar with example captions" width="1291" height="1320" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
+        <button class="shot" type="button" aria-label="Enlarge project 3: 7-day content calendar"><img src="images/project-3-content-calendar.png" alt="Spreadsheet screenshot of a sample 7-day social media content calendar with example captions" width="1291" height="1320" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
         <div class="ptext">
           <div class="plabel">Project 3 · Social media support</div>
           <h3>7-day content calendar</h3>
@@ -92,7 +219,7 @@
         </div>
       </article>
       <article class="proj">
-        <button class="shot" type="button" aria-label="Enlarge project 4: Lead research tracker"><img src="project-4.png" alt="Spreadsheet screenshot of a mock lead research tracker with sources, verification status, and next steps" width="1400" height="866" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
+        <button class="shot" type="button" aria-label="Enlarge project 4: Lead research tracker"><img src="images/project-4-lead-research.png" alt="Spreadsheet screenshot of a mock lead research tracker with sources, verification status, and next steps" width="1400" height="866" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
         <div class="ptext">
           <div class="plabel">Project 4 · Online research and lead generation</div>
           <h3>Lead research tracker</h3>
@@ -102,7 +229,7 @@
         </div>
       </article>
       <article class="proj">
-        <button class="shot" type="button" aria-label="Enlarge project 5: Weekly operations report"><img src="project-5.png" alt="Spreadsheet screenshot of a mock weekly operations report with an executive summary, task status, and next steps" width="1321" height="1379" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
+        <button class="shot" type="button" aria-label="Enlarge project 5: Weekly operations report"><img src="images/project-5-weekly-report.png" alt="Spreadsheet screenshot of a mock weekly operations report with an executive summary, task status, and next steps" width="1321" height="1379" loading="lazy"><span class="zoom">Tap to enlarge</span></button>
         <div class="ptext">
           <div class="plabel">Project 5 · Document preparation</div>
           <h3>Weekly operations report</h3>
@@ -118,9 +245,10 @@
     <div class="wrap split">
       <div>
         <div class="head" style="margin-bottom:22px"><h2>Focus on your business. I’ll handle the details.</h2></div>
-        <p>I’m <strong>Asterio “Jay” Juyad Jr.</strong> From managing inboxes and calendars to data entry, research, and customer support, I take care of the tasks that keep your business running.</p>
-        <p>I communicate clearly, respond promptly, and meet deadlines. I take ownership of every task and make sure the work is accurate, neat, and done the way you want it.</p>
-        <p>I’m also quick to learn new tools and adapt to your workflow, so you don’t have to spend much time training me.</p>
+        <p>I’m <strong>Asterio “Jay” Juyad Jr.</strong> I help business owners, entrepreneurs, and busy professionals save time by taking care of the day-to-day tasks that keep their business running smoothly. From managing inboxes and calendars to data entry, research, and customer support, I handle the details so you can focus on growing your business.</p>
+        <p>With 6 years of professional experience — 3 years as a Project Engineer in a private contracting company and 3 years as a Special Science Teacher in the Department of Education — I bring strong organizational skills, attention to detail, and the ability to manage multiple priorities accurately and on time.</p>
+        <p>I’m reliable, organized, and detail-oriented. I communicate clearly, respond promptly, and meet deadlines. I take ownership of every task and make sure the work is accurate, neat, and done the way you want it. I’m also quick to learn new tools and adapt to your workflow, so you don’t have to spend much time training me.</p>
+        
       </div>
       <div class="todo" aria-labelledby="todo-t">
         <h3 id="todo-t">Your to-do list, my job</h3>
@@ -145,7 +273,7 @@
         <div><h3>Clear and timely communication</h3><p>You’ll always know where your tasks stand, and I respond promptly.</p></div>
         <div><h3>Careful attention to detail</h3><p>Work that is accurate, neat, and done the way you want it.</p></div>
         <div><h3>Dependable and consistent work</h3><p>I meet deadlines and take ownership of every task.</p></div>
-        <div><h3>Respect for your time and confidentiality</h3><p>Your deadlines and your business information are handled with care.</p></div>
+        <div><h3>Respect for your time, deadlines, and confidentiality</h3><p>Your schedule and your business information are handled with care.</p></div>
       </div>
     </div>
   </section>
@@ -155,7 +283,7 @@
       <div class="head"><h2>Skills</h2></div>
       <ul class="chips">
         <li class="core">Virtual Assistance</li><li class="core">Administrative Support</li><li class="core">Data Entry</li><li class="core">Email Management</li><li class="core">Calendar Management</li><li class="core">Customer Support</li>
-        <li>Online Research</li><li>Lead Generation</li><li>Appointment Setting</li><li>Google Sheets / Microsoft Excel</li><li>Document Formatting</li><li>Proofreading</li><li>Social Media Management</li><li>Travel Planning</li><li>Time Management</li>
+        <li>Online Research</li><li>Lead Generation</li><li>Google Sheets / Microsoft Excel</li><li>Microsoft 365</li><li>Canva</li><li>Document Formatting</li><li>Proofreading</li><li>Social Media Management</li><li>Time Management</li>
       </ul>
       <p class="legend">Highlighted skills are my core services.</p>
     </div>
@@ -166,7 +294,7 @@
       <div class="head"><h2>My background</h2></div>
       <div class="bg-cards">
         <div class="card"><h3>Special Science Teacher</h3><div class="org">Department of Education</div><div class="when">July 2023 to present</div></div>
-        <div class="card"><h3>Mechanical Engineer</h3><div class="org">RRAB Industrial Sales and Services, Inc.</div><div class="when">March 2021 to May 2023</div></div>
+        <div class="card"><h3>Project Engineer</h3><div class="org">RRAB Industrial Sales and Services, Inc.</div><div class="when">2020 to 2023</div></div>
       </div>
     </div>
   </section>
@@ -190,6 +318,20 @@
 
 <footer>© <span id="yr"></span> Asterio Juyad Jr. General Virtual Assistant. <a href="https://www.upwork.com/freelancers/~01d40089ea4258d550?mp_source=share" target="_blank" rel="noopener noreferrer">Upwork profile</a></footer>
 
-<script src="main.js"></script>
+<script>
+var tasks=document.querySelectorAll('.task'),count=document.getElementById('count');
+tasks.forEach(function(t){t.addEventListener('click',function(){
+  t.setAttribute('aria-pressed',t.getAttribute('aria-pressed')==='true'?'false':'true');
+  var n=document.querySelectorAll('.task[aria-pressed="true"]').length;
+  count.textContent=n===tasks.length?'Everything handled. What’s next on your list?':n+' of '+tasks.length+' handled';
+});});
+var lb=document.getElementById('lb'),lbImg=lb.querySelector('img');
+document.querySelectorAll('.shot').forEach(function(b){b.addEventListener('click',function(){
+  var im=b.querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lb.showModal();lb.scrollTop=0;
+});});
+lb.querySelector('.lb-close').addEventListener('click',function(){lb.close();});
+lb.addEventListener('click',function(e){if(e.target===lb)lb.close();});
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
